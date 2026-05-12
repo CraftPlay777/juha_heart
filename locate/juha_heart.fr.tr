@@ -1,0 +1,9 @@
+# textdomain: juha_heart
+@1 vidas invisibles=@1 vies invisibles
+Puede usar /heart=Peut utiliser /heart
+<hp> [jugador] | quit <hp> [jugador]=<hp> [joueur] | quit <hp> [joueur]
+Asigna o quita vidas invisibles=Attribue ou retire des vies invisibles
+Uso: /heart <hp> [jugador]  |  /heart quit <hp> [jugador]=Utilisation: /heart <hp> [joueur]  |  /heart quit <hp> [joueur]
+Jugador no encontrado: @1=Joueur introuvable: @1
+Quitadas @1 vidas invisibles a @2=Retiré @1 vies invisibles à @2
+Asignadas @1 vidas invisibles a @2=Attribué @1 vies invisibles à @2

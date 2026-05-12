@@ -1,6 +1,8 @@
 -- juha_heart | Juha (CraftPlay777)
 -- /heart: vidas invisibles mostradas en HUD lateral
 
+local S = minetest.get_translator("juha_heart")
+
 local huds    = {}
 local hp_inv  = {}
 local storage = minetest.get_mod_storage()
@@ -51,7 +53,7 @@ local function actualizar_hud(player)
     end
 
     crear_hud(player)
-    player:hud_change(huds[name].txt, "text", hp .. " vidas invisibles")
+    player:hud_change(huds[name].txt, "text", S("@1 vidas invisibles", hp))
 end
 
 -- intercepta daño
@@ -66,17 +68,15 @@ minetest.register_on_player_hpchange(function(player, hp_change, reason)
     local resto = inv - dano
 
     if resto >= 0 then
-        -- vidas invisibles absorben todo
         hp_inv[name] = resto
         storage:set_int(name, resto)
         actualizar_hud(player)
         return 0
     else
-        -- se agotan y el sobrante va a HP real
         hp_inv[name] = 0
         storage:set_int(name, 0)
         actualizar_hud(player)
-        return resto -- negativo = daño restante
+        return resto
     end
 end, true)
 
@@ -95,13 +95,13 @@ end)
 
 -- priv
 minetest.register_privilege("heart", {
-    description = "Puede usar /heart",
+    description      = S("Puede usar /heart"),
     give_to_singleplayer = false,
 })
 
 minetest.register_chatcommand("heart", {
-    params      = "<hp> [jugador] | quit <hp> [jugador]",
-    description = "Asigna o quita vidas invisibles",
+    params      = S("<hp> [jugador] | quit <hp> [jugador]"),
+    description = S("Asigna o quita vidas invisibles"),
     privs       = {heart = true},
     func = function(caller, param)
         local args = {}
@@ -113,12 +113,12 @@ minetest.register_chatcommand("heart", {
         local objetivo = args[idx + 1] or caller
 
         if not cantidad or cantidad < 0 then
-            return false, "Uso: /heart <hp> [jugador]  |  /heart quit <hp> [jugador]"
+            return false, S("Uso: /heart <hp> [jugador]  |  /heart quit <hp> [jugador]")
         end
 
         local player = minetest.get_player_by_name(objetivo)
         if not player then
-            return false, "Jugador no encontrado: " .. objetivo
+            return false, S("Jugador no encontrado: @1", objetivo)
         end
 
         if quitar then
@@ -131,11 +131,8 @@ minetest.register_chatcommand("heart", {
         actualizar_hud(player)
 
         local accion = quitar
-            and ("Quitadas " .. cantidad .. " vidas invisibles a ")
-            or  ("Asignadas " .. cantidad .. " vidas invisibles a ")
-        return true, accion .. objetivo
+            and S("Quitadas @1 vidas invisibles a @2", cantidad, objetivo)
+            or  S("Asignadas @1 vidas invisibles a @2", cantidad, objetivo)
+        return true, accion
     end,
 })
- 
- 
- -- linea 41,el número más malvado de todos

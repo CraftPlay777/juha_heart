@@ -25,6 +25,7 @@ Adds invisible lives (HP-based) shown as HUD text with a white background above 
 - When invisible HP reaches 0, the HUD element disappears automatically.
 - Invisible HP **persists across sessions** — rejoining restores the last saved value.
 - Requires the `heart` privilege.
+- Contains translations into 3 languages (es, en, fr)
 
 ## IMPORTANT
 If the HUD doesn't look right, adjust this line in init.lua by approximately 8/10 lines.
